@@ -16,10 +16,6 @@ using Avalonia.Controls.Shapes;
 namespace LogicSimulator.Models {
     public static class Utils {
 
-        /*
-         * Base64 абилка
-         */
-
         public static string Base64Encode(string plainText) {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
@@ -29,23 +25,19 @@ namespace LogicSimulator.Models {
             return Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
-        /*
-         * JSON абилка
-         */
-
         public static string JsonEscape(string str) {
             StringBuilder sb = new();
             foreach (char i in str) {
                 sb.Append(i switch {
                     '"' => "\\\"",
                     '\\' => "\\\\",
-                    '$' => "{$", // Чисто по моей части ;'-}
+                    '$' => "{$", 
                     _ => i
                 });
             }
             return sb.ToString();
         }
-        public static string Obj2json(object? obj) { // Велосипед ради поддержки своей сериализации классов по типу Point, SolidColorBrush и т.д.
+        public static string Obj2json(object? obj) { 
             switch (obj) {
             case null: return "null";
             case string @str: return '"' + JsonEscape(str) + '"';
@@ -95,7 +87,6 @@ namespace LogicSimulator.Models {
             return str[1] switch {
                 'p' => Point.Parse(data),
                 's' => Size.Parse(data),
-                // 'P' => new SafePoints(data.Replace('|', ' ')).Points,
                 'C' => new SolidColorBrush(Color.Parse(data)),
                 'T' => new Thickness(double.Parse(thick[0]), double.Parse(thick[1]), double.Parse(thick[2]), double.Parse(thick[3])),
                 _ => str,
@@ -216,7 +207,6 @@ namespace LogicSimulator.Models {
                     return List2XML(@item.EnumerateArray().Select(item => (object?) item).ToList(), level);
                 case JsonValueKind.String:
                     var s = XMLEscape(@item.GetString() ?? "null");
-                    // Log.Write("XS: '" + @item.GetString() + "' -> '" + s + "'");
                     return s;
                 case JsonValueKind.Number: return "$" + @item.ToString(); // escape NUM
                 case JsonValueKind.True: return "_BOOL_yeah";
@@ -241,7 +231,7 @@ namespace LogicSimulator.Models {
         }
 
         private static string ToJSONHandler(string str) {
-            if (str.Length > 1 && str[0] == '$' && str[1] <= '9' && str[1] >= '0') return str[1..]; // unescape NUM
+            if (str.Length > 1 && str[0] == '$' && str[1] <= '9' && str[1] >= '0') return str[1..];
             return str switch {
                 "null" => "null",
                 "undefined" => "undefined",
@@ -353,7 +343,6 @@ namespace LogicSimulator.Models {
                     return List2YAML(@item.EnumerateArray().Select(item => (object?) item).ToList(), level);
                 case JsonValueKind.String:
                     var s = YAMLEscape(@item.GetString() ?? "null");
-                    // Log.Write("YS: '" + @item.GetString() + "' -> " + s);
                     return s;
                 case JsonValueKind.Number: return @item.ToString();
                 case JsonValueKind.True: return "true";
@@ -362,7 +351,7 @@ namespace LogicSimulator.Models {
                 }
             }
             Log.Write("YT: " + obj.GetType());
-            throw new Exception("Чё?!");
+            throw new Exception("что?!");
         }
 
         public static string? Json2yaml(string json) {
@@ -374,7 +363,7 @@ namespace LogicSimulator.Models {
             else if (json[0] == '{') data = JsonSerializer.Deserialize<Dictionary<string, object?>>(json);
             else return null;
 
-            return "---" + ToYAMLHandler(data, "\n") + "\n"; // Конец будет обязателен, как в питоне!
+            return "---" + ToYAMLHandler(data, "\n") + "\n";
         }
 
 
@@ -414,7 +403,7 @@ namespace LogicSimulator.Models {
                 sb.Append(c);
                 c = yaml[pos++];
             }
-            if (c != '\n') throw new Exception("После числа всяко должен быть '\n");
+            if (c != '\n') throw new Exception("После числа должен быть '\n");
             YAML_Log("Parsed num: " + sb.ToString(), 1);
             return sb.ToString();
         }
@@ -433,7 +422,7 @@ namespace LogicSimulator.Models {
             return '"' + str + '"';
         }
         private static string YAML_ParseLayer(ref string yaml, ref int pos) {
-            if (pos == yaml.Length) return ""; // Конец файла
+            if (pos == yaml.Length) return ""; 
             StringBuilder sb = new();
             char first = yaml[pos++];
             while (" \t".Contains(first)) {
@@ -445,7 +434,7 @@ namespace LogicSimulator.Models {
         }
         private static string YAML_ToJSONHandler(ref string yaml, ref int pos) {
             var layer = YAML_ParseLayer(ref yaml, ref pos);
-            if (pos == yaml.Length) return ""; // Конец файла
+            if (pos == yaml.Length) return ""; 
             char first = yaml[pos++];
 
             switch (first) {
@@ -461,7 +450,7 @@ namespace LogicSimulator.Models {
                 bool First = true;
                 pos--;
                 while (true) {
-                    if (pos == yaml.Length) break; // Конец файла
+                    if (pos == yaml.Length) break; 
 
                     if (First) First = false;
                     else {
@@ -512,7 +501,7 @@ namespace LogicSimulator.Models {
                 res.Append('{');
                 bool First = true;
                 while (true) {
-                    if (pos == yaml.Length) break; // Конец файла
+                    if (pos == yaml.Length) break;
 
                     if (First) First = false;
                     else {
@@ -577,14 +566,12 @@ namespace LogicSimulator.Models {
          * Misc
          */
 
-        public static string? Obj2xml(object? obj) => Json2xml(Obj2json(obj)); // Чёт припомнилось свойство транзитивности с дискретной матеши...
+        public static string? Obj2xml(object? obj) => Json2xml(Obj2json(obj)); 
         public static object? Xml2obj(string xml) => Json2obj(Xml2json(xml));
         public static string? Obj2yaml(object? obj) => Json2yaml(Obj2json(obj));
         public static object? Yaml2obj(string xml) => Json2obj(Yaml2json(xml));
 
         public static void RenderToFile(Control target, string path) {
-            // var target = (Control?) tar.Parent;
-            // if (target == null) return;
 
             double w = target.Bounds.Width, h = target.Bounds.Height;
             var pixelSize = new PixelSize((int) w, (int) h);
@@ -596,7 +583,7 @@ namespace LogicSimulator.Models {
             bitmap.Save(path);
         }
 
-        public static string TrimAll(this string str) { // Помимо пробелов по бокам, убирает повторы пробелов внутри
+        public static string TrimAll(this string str) {
             StringBuilder sb = new();
             for (int i = 0; i < str.Length; i++) {
                 if (i > 0 && str[i] == ' ' && str[i - 1] == ' ') continue;
@@ -605,9 +592,6 @@ namespace LogicSimulator.Models {
             return sb.ToString().Trim();
         }
 
-        // Странно, почему оригинальный Split() работает, как обычный Split(' '),
-        // ведь во всех языках (по крайней мере в тех, которые я видел до C#) он
-        // игнорирует добавления в ответ пустых строк.
         public static string[] NormSplit(this string str) => str.TrimAll().Split(' ');
 
         public static string GetStackInfo() {
@@ -660,19 +644,19 @@ namespace LogicSimulator.Models {
         public static double Max(this double A, double B) => A > B ? A : B;
 
         public static void Remove(this Control item) {
-            var p = (Panel?) item.Parent; // Именно Panel и добавляет понятие Children ;'-}}}}}}}}}}
+            var p = (Panel?) item.Parent; 
             p?.Children.Remove(item);
         }
 
         public static Point Center(this Visual item, Visual? parent) {
             var tb = item.TransformedBounds;
-            if (tb == null) return new(); // Обычно так не бывает
+            if (tb == null) return new(); 
             var bounds = tb.Value.Bounds.TransformToAABB(tb.Value.Transform);
             var res = bounds.Center;
-            if (parent == null) return res; // parent в качестве точки отсчёта, например холст
+            if (parent == null) return res; 
 
             var tb2 = parent.TransformedBounds;
-            if (tb2 == null) return res; // Обычно так не бывает
+            if (tb2 == null) return res; 
             var bounds2 = tb2.Value.Bounds.TransformToAABB(tb2.Value.Transform);
             return res - bounds2.TopLeft;
         }

@@ -39,7 +39,7 @@ namespace LogicSimulator.ViewModels {
         private string log = "";
         public string Logg { get => log; set => this.RaiseAndSetIfChanged(ref log, value); }
 
-        public MainWindowViewModel() { // Если я буду Window mw передавать через этот конструктор, то предварительный просмотр снова порвёт смачно XD
+        public MainWindowViewModel() {
             Log.Mwvm = this;
             Comm = ReactiveCommand.Create<string, Unit>(n => { FuncComm(n); return new Unit(); });
             NewItem = ReactiveCommand.Create<Unit, Unit>(_ => { FuncNewItem(); return new Unit(); });
@@ -51,13 +51,13 @@ namespace LogicSimulator.ViewModels {
 
             mw = window;
             map.canv = canv;
-            if (canv == null) return; // Такого не бывает
+            if (canv == null) return; 
 
             canv.Children.Add(map.Marker);
             canv.Children.Add(map.Marker2);
 
             var panel = (Panel?) canv.Parent;
-            if (panel == null) return; // Такого не бывает
+            if (panel == null) return; 
 
             panel.PointerPressed += (object? sender, PointerPressedEventArgs e) => {
                 if (e.Source != null && e.Source is Control @control) map.Press(@control, e.GetCurrentPoint(canv).Position);
@@ -71,7 +71,7 @@ namespace LogicSimulator.ViewModels {
                     bool tap = map.tapped;
                     if (tap && mode == 1) {
                         var pos = map.tap_pos;
-                        if (canv == null) return; // Такого не бывает
+                        if (canv == null) return;
 
                         var newy = map.GenSelectedItem();
                         newy.Move(pos);
@@ -91,7 +91,7 @@ namespace LogicSimulator.ViewModels {
         public static int SelectedItem { get => map.SelectedItem; set => map.SelectedItem = value; }
 
         /*
-         * Обработка той самой панели со схемами проекта
+         * Обработка панели со схемами проекта
          */
 
         Grid? cur_grid;
@@ -127,17 +127,14 @@ namespace LogicSimulator.ViewModels {
             old_b_child_tag = tb.Tag;
             prev_scheme_name = tb.Text;
 
-            var newy = new TextBox { Text = tb.Text }; // Изи блиц-транcформация в одну строчку ;'-}
+            var newy = new TextBox { Text = tb.Text };
 
-            // Log.Write("Tag: " + tb.Tag);
             cur_grid.Children[0] = newy;
-            //Log.Write("Tag: " + tb.Tag); // КААААК?!?!?!? Почему пропажа предка удаляет Tag?!
 
             newy.KeyUp += (object? sender, KeyEventArgs e) => {
                 if (e.Key != Key.Return) return;
 
                 if (newy.Text != prev_scheme_name) {
-                    // tb.Text = newy.Text;
                     if ((string?) tb.Tag == "p_name") CurrentProj?.ChangeName(newy.Text);
                     else if (old_b_child_tag is Scheme scheme) scheme.ChangeName(newy.Text);
                 }
@@ -148,14 +145,14 @@ namespace LogicSimulator.ViewModels {
         }
 
         public void Update() {
-            Log.Write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    Текущий проект:\n" + CurrentProj);
+            Log.Write("\nТекущий проект:\n" + CurrentProj);
 
             map.ImportScheme();
 
             this.RaisePropertyChanged(new(nameof(ProjName)));
             this.RaisePropertyChanged(new(nameof(Schemes)));
             this.RaisePropertyChanged(new(nameof(CanSave)));
-            if (mw != null) mw.Width++; // ГОРАААААААААААААЗДО больше толку, чем от всех этих НЕРАБОЧИХ через раз RaisePropertyChanged
+            if (mw != null) mw.Width++;
         }
 
         public static bool CanSave { get => CurrentProj != null && CurrentProj.CanSave(); }
@@ -181,8 +178,7 @@ namespace LogicSimulator.ViewModels {
                 break;
             case "Save":
                 map.Export();
-                // Для создания тестовых штучек:
-                File.WriteAllText("../../../for_test.json", Utils.Obj2json((map.current_scheme ?? throw new System.Exception("Чё?!")).Export()));
+                File.WriteAllText("../../../for_test.json", Utils.Obj2json((map.current_scheme ?? throw new System.Exception("Что?!")).Export()));
                 break;
             case "SaveAs":
                 map.Export();

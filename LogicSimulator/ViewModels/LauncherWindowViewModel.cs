@@ -62,10 +62,6 @@ namespace LogicSimulator.ViewModels {
             me?.Close();
         }
 
-        /*
-         * Для тестирования
-         */
-
         public static MainWindow GetMW => mw;
     }
 }

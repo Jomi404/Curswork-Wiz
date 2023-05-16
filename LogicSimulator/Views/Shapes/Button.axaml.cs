@@ -35,12 +35,12 @@ namespace LogicSimulator.Views.Shapes {
         private void Press(object? sender, PointerPressedEventArgs e) {
             if (e.Source is not Ellipse button) return;
             my_state = true;
-            button.Fill = new SolidColorBrush(Color.Parse("#7d1414"));
+            button.Fill = new SolidColorBrush(Color.Parse("#8B0000"));
         }
         private void Release(object? sender, PointerReleasedEventArgs e) {
             if (e.Source is not Ellipse button) return;
             my_state = false;
-            button.Fill = new SolidColorBrush(Color.Parse("#d32f2e"));
+            button.Fill = new SolidColorBrush(Color.Parse("#DC143C"));
         }
 
         public void Brain(ref bool[] ins, ref bool[] outs) => outs[0] = my_state;

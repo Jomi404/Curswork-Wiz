@@ -1,64 +1,64 @@
 ---
 name: "Тестовый проект"
 created: 1684055788
-modified: 1684056079
+modified: 1684241845
 schemes:
 	-
 		name: PS
 		created: 1684055788
-		modified: 1684055865
+		modified: 1684241845
 		items:
 			-
 				id: 4
-				pos: $p$405,315
-				size: $s$105,105
-				base_size: 36.60250000000002
+				pos: $p$395,308
+				size: $s$115,115
+				base_size: 40.26275000000004
 			-
 				id: 5
-				pos: $p$127,273
-				size: $s$105,105
-				base_size: 36.60250000000002
+				pos: $p$142,270
+				size: $s$95,95
+				base_size: 33.27500000000002
 				state: false
 			-
 				id: 5
-				pos: $p$131,378
-				size: $s$105,105
-				base_size: 36.60250000000002
+				pos: $p$146,365
+				size: $s$95,95
+				base_size: 33.27500000000002
 				state: true
 			-
 				id: 7
-				pos: $p$718,255
-				size: $s$105,105
-				base_size: 36.60250000000002
+				pos: $p$679,253
+				size: $s$95,95
+				base_size: 33.27500000000002
 				state: true
 			-
 				id: 7
-				pos: $p$717,361
-				size: $s$105,105
-				base_size: 36.60250000000002
+				pos: $p$678,350
+				size: $s$95,95
+				base_size: 33.27500000000002
 				state: false
 			-
 				id: 7
-				pos: $p$730,559
-				size: $s$78,78
-				base_size: 27.500000000000004
+				pos: $p$690,530
+				size: $s$70,70
+				base_size: 25.000000000000004
 				state: true
 			-
 				id: 7
-				pos: $p$728,637
-				size: $s$78,78
-				base_size: 27.500000000000004
+				pos: $p$688,601
+				size: $s$70,70
+				base_size: 25.000000000000004
 				state: false
 			-
 				id: 0
-				pos: $p$433,630
-				size: $s$78,78
-				base_size: 27.500000000000004
+				pos: $p$420,594
+				size: $s$70,70
+				base_size: 25.000000000000004
 			-
 				id: 3
-				pos: $p$430,553
-				size: $s$78,78
-				base_size: 27.500000000000004
+				pos: $p$417,524
+				size: $s$70,70
+				base_size: 25.000000000000004
 		joins:
 			-
 				- 3

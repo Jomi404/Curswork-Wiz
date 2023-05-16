@@ -7,19 +7,14 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters;
 
 
-// LogicSimulator.Program.Main(Array.Empty<string>()); Ура! Консольный режим изобретён ;'-}
-// Type[] types = Assembly.GetExecutingAssembly().GetTypes();
-// Type[] types = new Type[] { typeof(Mapper) };
-
-// Вот это по нашему:
-Type[] types = (Assembly.GetAssembly(typeof(Mapper)) ?? throw new Exception("Чё?!")).GetTypes();
+Type[] types = (Assembly.GetAssembly(typeof(Mapper)) ?? throw new Exception("?!")).GetTypes();
 List<Type> passed_types = new();
 Dictionary<Type, int> type_to_num = new();
 
 List<object> items = new();
 int n = 0;
 foreach (Type type in types) {
-    var name = type.FullName ?? throw new Exception("Чё?!");
+    var name = type.FullName ?? throw new Exception("?!");
     if (name.Contains('+') || !name.StartsWith("LogicSimulator.")) continue;
 
     Console.WriteLine("\nT: " + name);
@@ -56,7 +51,7 @@ foreach (Type type in types) {
 
         switch (mem.MemberType) {
         case MemberTypes.Field:
-            var field_info = type.GetField(mem_name) ?? throw new Exception("Чё?!");
+            var field_info = type.GetField(mem_name) ?? throw new Exception("?!");
 
             attrs.Add(new Dictionary<string, object?>() {
                 ["name"] = mem.Name,
@@ -72,7 +67,7 @@ foreach (Type type in types) {
             });
             break;
         case MemberTypes.Event:
-            var event_info = type.GetEvent(mem_name) ?? throw new Exception("Чё?!");
+            var event_info = type.GetEvent(mem_name) ?? throw new Exception("?!");
 
             attrs.Add(new Dictionary<string, object?>() {
                 ["name"] = mem.Name,
@@ -85,7 +80,7 @@ foreach (Type type in types) {
             });
             break;
         case MemberTypes.Property:
-            var prop_info = type.GetProperty(mem_name) ?? throw new Exception("Чё?!");
+            var prop_info = type.GetProperty(mem_name) ?? throw new Exception("?!");
             var getter = prop_info.GetGetMethod(true);
             var setter = prop_info.GetSetMethod(true);
 

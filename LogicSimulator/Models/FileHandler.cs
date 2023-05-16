@@ -44,7 +44,6 @@ namespace LogicSimulator.Models {
 
         public Project CreateProject() {
             var proj = new Project(this);
-            // projects.Add(proj); Перенесено в AppendProject
             return proj;
         }
         private Project? LoadProject(string dir, string fileName) {
@@ -130,7 +129,7 @@ namespace LogicSimulator.Models {
             var dlg = new OpenFileDialog {
                 Title = "Выберите файл с проектом (proj_*.yaml), который нужно открыть"
             };
-            dlg.Filters?.Add(new FileDialogFilter() { Name = "YAML Files", Extensions = { "yaml" } });
+            dlg.Filters?.Add(new FileDialogFilter() { Name = "YAML Files", Extensions = { "yaml" } }); //
             dlg.Filters?.Add(new FileDialogFilter() { Name = "All Files", Extensions = { "*" } });
             dlg.AllowMultiple = false;
 

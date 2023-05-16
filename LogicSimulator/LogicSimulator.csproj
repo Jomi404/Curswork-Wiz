@@ -7,17 +7,18 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+	<!--  этот XML-код определяет набор
+	ресурсов и файлов для включения или исключения из проекта, 
+	в частности, в контексте Avalonia framework
+	-->
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
 	<AvaloniaResource Include="Styles\**" />
     <None Remove=".gitignore" />
-    <None Remove="Assets\Deleter.png" />
-    <None Remove="Assets\NewItem.png" />
-    <None Remove="Assets\Resizer.png" />
-    <None Remove="Assets\TrashCan.png" />
-    <None Remove="Assets\vectorasd-logo.ico" />
   </ItemGroup>
 
+	<!--"Roots.xml " файл имеет отношение к процессу оптимизации приложения.
+    Назначение и функциональность элемента "TrimmerRootDescriptor" и "Roots.xml " -->
   <ItemGroup>
     <TrimmerRootDescriptor Include="Roots.xml" />
   </ItemGroup>
@@ -32,44 +33,69 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <!--XML-код связывает файл кода C# ("LauncherWindow.axaml.cs") 
+	  с соответствующим файлом XAML ("LauncherWindow.axaml") .-->
     <Compile Update="Views\LauncherWindow.axaml.cs">
+		
+		<!--<DependentUpon> указывает, что конкретный файл следует рассматривать как зависимость от другого файла. 
+		Эта взаимосвязь часто используется для организации связанных файлов в рамках проекта и управления ими,
+		а также для указания логической или структурной связи между ними.-->
+		
+		<!--Это помогает визуально сгруппировать связанные файлы и облегчает навигацию по структуре проекта.-->
+		
+		<!--В Avalonia AXAML (Avalonia XAML) - это язык разметки, используемый для определения пользовательского интерфейса приложения.-->
+		
       <DependentUpon>LauncherWindow.axaml</DependentUpon>
     </Compile>
+	  
     <Compile Update="Views\Shapes\AND_8.axaml.cs">
       <DependentUpon>AND_8.axaml</DependentUpon>
     </Compile>
+	  
     <Compile Update="Views\Shapes\NAND_2.axaml.cs">
       <DependentUpon>NAND_2.axaml</DependentUpon>
     </Compile>
+
+	  <Compile Update="Views\Shapes\OR_8.axaml.cs">
+		  <DependentUpon>OR_8.axaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Views\Shapes\PSum.axaml.cs">
+		  <DependentUpon>PSum.axaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Views\Shapes\XOR_2.axaml.cs">
+		  <DependentUpon>XOR_2.axaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Views\Shapes\OR_2.axaml.cs">
+		  <DependentUpon>OR_2.axaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Views\Shapes\NOT.axaml.cs">
+		  <DependentUpon>NOT.axaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Views\Shapes\AND_2.axaml.cs">
+		  <DependentUpon>AND_2.axaml</DependentUpon>
+	  </Compile>
+	  
     <Compile Update="Views\Shapes\Button.axaml.cs">
       <DependentUpon>Button.axaml</DependentUpon>
     </Compile>
+	  
     <Compile Update="Views\Shapes\LightBulb.axaml.cs">
       <DependentUpon>LightBulb.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Shapes\OR_8.axaml.cs">
-      <DependentUpon>OR_8.axaml</DependentUpon>
-    </Compile>
+	  
     <Compile Update="Views\Shapes\Switch.axaml.cs">
       <DependentUpon>Switch.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Shapes\PSum.axaml.cs">
-      <DependentUpon>PSum.axaml</DependentUpon>
-    </Compile>
+	  
     <Compile Update="Views\Shapes\FlipFlop.axaml.cs">
       <DependentUpon>FlipFlop.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Shapes\XOR_2.axaml.cs">
-      <DependentUpon>XOR_2.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Shapes\OR_2.axaml.cs">
-      <DependentUpon>OR_2.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Shapes\NOT.axaml.cs">
-      <DependentUpon>NOT.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Shapes\AND_2.axaml.cs">
-      <DependentUpon>AND_2.axaml</DependentUpon>
-    </Compile>
+	  
+	  
   </ItemGroup>
 </Project>

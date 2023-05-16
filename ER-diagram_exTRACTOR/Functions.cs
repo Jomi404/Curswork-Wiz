@@ -52,15 +52,15 @@ namespace ER_diagram_exTRACTOR {
 
                 switch (mem.MemberType) {
                 case MemberTypes.Field:
-                    var field_info = type.GetField(mem_name) ?? throw new Exception("Чё?!");
+                    var field_info = type.GetField(mem_name) ?? throw new Exception("?!");
                     GetUsedTypes2(field_info.FieldType, res, mode);
                     break;
                 case MemberTypes.Event:
-                    var event_info = type.GetEvent(mem_name) ?? throw new Exception("Чё?!");
+                    var event_info = type.GetEvent(mem_name) ?? throw new Exception("?!");
                     GetUsedTypes2(event_info.EventHandlerType, res, mode);
                     break;
                 case MemberTypes.Property:
-                    var prop_info = type.GetProperty(mem_name) ?? throw new Exception("Чё?!");
+                    var prop_info = type.GetProperty(mem_name) ?? throw new Exception("?!");
                     GetUsedTypes2(prop_info.PropertyType, res, mode);
                     break;
                 case MemberTypes.Method:

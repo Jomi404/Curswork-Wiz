@@ -30,7 +30,6 @@ namespace LogicSimulator.Views.Shapes {
         bool my_state = false;
         Point? press_pos;
 
-        // Данная схема работает гораздо быстрее, чем событие Tapped ;'-} Из-за того, что не обрабатывается дополнительно DoubleTapped, что гасит второй Tapped + некоторые задержки
         private static Point GetPos(PointerEventArgs e) {
             if (e.Source is not Control src) return new();
             while ((string?) src.Tag != "scene" && src.Parent != null) src = (Control) src.Parent;
@@ -45,7 +44,7 @@ namespace LogicSimulator.Views.Shapes {
             press_pos = null;
 
             my_state = !my_state;
-            border.Background = new SolidColorBrush(Color.Parse(my_state ? "#7d1414" : "#d32f2e"));
+            border.Background = new SolidColorBrush(Color.Parse(my_state ? "#FF0000" : "#8B0000"));
         }
 
         public void Brain(ref bool[] ins, ref bool[] outs) => outs[0] = my_state;
@@ -60,7 +59,7 @@ namespace LogicSimulator.Views.Shapes {
             if (key != "state") { Log.Write(key + "-запись элемента не поддерживается"); return; }
             if (extra is not bool @state) { Log.Write("Неверный тип state-записи элемента: " + extra); return; }
             my_state = @state;
-            if (my_state) border.Background = new SolidColorBrush(Color.Parse("#7d1414"));
+            if (my_state) border.Background = new SolidColorBrush(Color.Parse("#FF0000"));
         }
 
         /*
@@ -69,7 +68,7 @@ namespace LogicSimulator.Views.Shapes {
 
         public void SetState(bool state) {
             my_state = state;
-            border.Background = new SolidColorBrush(Color.Parse(state ? "#7d1414" : "#d32f2e"));
+            border.Background = new SolidColorBrush(Color.Parse(state ? "#FF0000" : "#8B0000"));
         }
     }
 }
